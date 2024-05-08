@@ -1,31 +1,32 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { Form } from "formik";
-import { object, string } from "yup";
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import TextField from "@mui/material/TextField"
+import { Form } from "formik"
+import { object, string } from "yup"
 
-const registerSchema = object({
+export const registerSchema = object({
   username: string()
-    .max(20, "Kullanıcı adı 20 karakterden az olmalıdır")
+    .max(20, "Kullanıcı adı 10 karakterden az olmalıdır.")
     .required("Kullanıcı adı zorunludur"),
-  firstname: string()
-    .max(20, "İsim 20 karakterden az olmalıdır")
+  firstName: string()
+    .max(20, "İsim 20 karakterden az olmalıdır.")
     .required("İsim zorunludur"),
-  lastname: string()
-    .max(20, "Soyisim 20 karakterden az olmalıdır")
+  lastName: string()
+    .max(20, "Soyisim 30 karakterden az olmalıdır.")
     .required("Soyisim zorunludur"),
+
   email: string()
-    .max("Lütfen geçerli bir email giriniz.")
+    .email("Lütfen geçerli bir email giriniz.")
     .required("Email zorunludur"),
   password: string()
     .required("Şifre zorunludur")
     .min(8, "Şifre en az 8 karakter olmalıdır")
     .max(20, "Şifre en fazla 20 karakter olmalıdır")
-    .matches(/\d+/, "Şifre en az 1 sayı içermelidir")
-    .matches(/[a-z]/, "Şifre en az 1 küçük harf içermelidir")
-    .matches(/[A-Z]/, "Şifre en az 1 BÜYÜK harf içermelidir")
-    .matches(/[!/[@$!%*?&]]+/, "Şifre en az 1 özel karakter içermelidir"),
-});
+    .matches(/\d+/, "Şifre bir sayı içermelidir")
+    .matches(/[a-z]/, "Şifre bir küçük harf içermelidir")
+    .matches(/[A-Z]/, "Şifre bir büyük harf içermelidir")
+    .matches(/[!/[@$!%*?&]+/, "Şifre bir özel karakter içermelidir"),
+})
 
 const RegisterForm = ({
   values,
@@ -51,27 +52,27 @@ const RegisterForm = ({
         />
         <TextField
           label="First Name"
-          name="first_name"
+          name="firstName"
           id="firstName"
           type="text"
           variant="outlined"
-          value={values.firstname}
+          value={values.firstName}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.firstname && Boolean(errors.firstname)}
-          helperText={touched.firstname && errors.firstname}
+          error={touched.firstName && Boolean(errors.firstName)}
+          helperText={touched.firstName && errors.firstName}
         />
         <TextField
           label="Last Name"
-          name="last_name"
-          id="last_name"
+          name="lastName"
+          id="lastName"
           type="text"
           variant="outlined"
-          value={values.lastname}
+          value={values.lastName}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.lastname && Boolean(errors.lastname)}
-          helperText={touched.lastname && errors.lastnalast}
+          error={touched.lastName && Boolean(errors.lastName)}
+          helperText={touched.lastName && errors.lastName}
         />
         <TextField
           label="Email"
@@ -102,7 +103,7 @@ const RegisterForm = ({
         </Button>
       </Box>
     </Form>
-  );
-};
+  )
+}
 
-export default RegisterForm;
+export default RegisterForm

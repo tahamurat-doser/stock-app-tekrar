@@ -5,13 +5,10 @@ import LockIcon from "@mui/icons-material/Lock";
 import image from "../assets/result.svg";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Formik } from "formik";
-
-import TextField from "@mui/material/TextField";
 import useApiRequest from "../services/useApiRequest";
-import RegisterForm from "../components/RegisterForm";
+import RegisterForm, { registerSchema } from "../components/RegisterForm";
 
 const Register = () => {
   const { register } = useApiRequest();
@@ -68,7 +65,7 @@ const Register = () => {
               actions.resetForm();
               actions.setSubmitting(false);
             }}
-            component={() => <RegisterForm {...props} />}
+            component={(props) => <RegisterForm {...props} />}
           ></Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
