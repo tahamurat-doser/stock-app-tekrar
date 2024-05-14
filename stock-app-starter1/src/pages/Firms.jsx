@@ -18,21 +18,17 @@ const Firms = () => {
       <Typography variant="h4" color={"error"} mt={4} mb={4}>
         Firms
       </Typography>
-      <Button variant="contained"  >
-        New Firm
-      </Button>
+      <Button variant="contained">New Firm</Button>
 
-      <Grid container gap={2} mt={3} justifyContent={"center"} >
+      <Grid container gap={2} mt={3} justifyContent={"center"}>
         {firms.map((firm) => (
-          <Grid item key={firm._id} >
-            <FirmCard firm={firm}/>
+          <Grid item key={firm._id}>
+            <FirmCard firm={firm} />
           </Grid>
-        ) )}
-
+        ))}
       </Grid>
     </div>
-  )
-  
+  );
 };
 
-export default Firms;
+export default Firms

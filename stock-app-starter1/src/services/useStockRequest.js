@@ -1,16 +1,16 @@
-import { useDispatch } from "react-redux"
-import useAxios from "./useAxios"
-import { fetchFail, fetchStart, getFirmsSuccess, getSalesSuccess } from "../features/stockSlice"
-import { getStockSuccess  } from "../features/stockSlice"
-
+import { useDispatch } from "react-redux";
+import useAxios from "./useAxios";
+import {
+  fetchFail,
+  fetchStart,
+} from "../features/stockSlice";
+import { getStockSuccess } from "../features/stockSlice";
 
 const useStockRequest = () => {
-    const {axiosToken} = useAxios()
-    const dispatch =useDispatch()
+  const { axiosToken } = useAxios();
+  const dispatch = useDispatch();
 
-
-
-   /*  const getFirms = async () => {
+  /*  const getFirms = async () => {
         dispatch(fetchStart())
         try {
             const {data }= await axiosToken("/firms")
@@ -35,19 +35,28 @@ const useStockRequest = () => {
         }
     } */
 
-    const getStock = async (path ="firms") => {
-        dispatch(fetchStart())
-        try {
-            const {data }= await axiosToken(`/${path}`)
-            const stockData = data.data
-            dispatch(getStockSuccess( {stockData, path} ))
-        } catch (error) {
-            dispatch(fetchFail())
-            console.log(error)
-            
-        }
+  const getStock = async (path = "firms") => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosToken(`/${path}`);
+      const stockData = data.data;
+      dispatch(getStockSuccess({ stockData, path }));
+    } catch (error) {
+      dispatch(fetchFail());
+      console.log(error);
     }
-  return {getStock}
-}
+  };
+  const deleteStock = async (path = "firms", id) => {
+    dispatch(fetchStart());
+    try {
+      await axiosToken.delete(`/${path}/${id}`);
+      getStock(path)
+    } catch (error) {
+      dispatch(fetchFail());
+      console.log(error);
+    }
+  };
+  return { getStock,deleteStock };
+};
 
-export default useStockRequest
+export default useStockRequest;
