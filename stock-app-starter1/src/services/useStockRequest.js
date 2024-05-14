@@ -35,7 +35,7 @@ const useStockRequest = () => {
         }
     } */
 
-    const getStock = async (path) => {
+    const getStock = async (path ="firms") => {
         dispatch(fetchStart())
         try {
             const {data }= await axiosToken(`/${path}`)
