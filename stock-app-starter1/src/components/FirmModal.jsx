@@ -27,20 +27,20 @@ export default function FirmModal({ handleClose, open, info, setInfo }) {
     }) */
   
     
-    const {postStock} = useStockRequest()
+    const {postStock, putStock} = useStockRequest()
     const handleChange =(e) => {
         setInfo({...info, [e.target.name]: e.target.value})
     }
     const handleSubmit = (e) => {
        e.preventDefault() 
-       postStock("firms", info)
-       setInfo({
-        name: "",
-        phone: "",
-        address: "",
-        image: "",
+      if (info._id) {
+        putStock("firms", info)
+      } else {
+        postStock("firms", info)
+      }
 
-       })
+       
+       
        handleClose()
     }
     
@@ -97,7 +97,7 @@ export default function FirmModal({ handleClose, open, info, setInfo }) {
               required
             />
             <Button variant="contained" type="submit" >
-                   ADD FIRM
+                {info._id? "UPDATE FIRM": "ADD FIRM"}   
             </Button>
           </Box>
         </Box>

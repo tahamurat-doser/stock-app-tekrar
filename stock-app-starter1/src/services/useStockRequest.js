@@ -1,9 +1,6 @@
 import { useDispatch } from "react-redux";
 import useAxios from "./useAxios";
-import {
-  fetchFail,
-  fetchStart,
-} from "../features/stockSlice";
+import { fetchFail, fetchStart } from "../features/stockSlice";
 import { getStockSuccess } from "../features/stockSlice";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
@@ -51,27 +48,38 @@ const useStockRequest = () => {
     dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${path}/${id}`);
-      getStock(path)
+      getStock(path);
     } catch (error) {
       dispatch(fetchFail());
       console.log(error);
     }
   };
 
-  const postStock = async (path = "firms", info ) => {
+  const postStock = async (path = "firms", info) => {
     dispatch(fetchStart());
     try {
-      await axiosToken.post(`/${path}/`, info)
-      getStock(path)
-      toastSuccessNotify(`${path} başarıyla eklenmiştir`)
+      await axiosToken.post(`/${path}/`, info);
+      getStock(path);
+      toastSuccessNotify(`${path} başarıyla eklenmiştir`);
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify(`${path} eklenememiştir`)
+      toastErrorNotify(`${path} eklenememiştir`);
+      console.log(error);
+    }
+  };
+  const putStock = async (path = "firms", info) => {
+    dispatch(fetchStart());
+    try {
+      await axiosToken.put(`/${path}/${info._id}`, info);
+      getStock(path);
+    } catch (error) {
+      dispatch(fetchFail());
+
       console.log(error);
     }
   };
 
-  return { getStock,deleteStock,postStock };
+  return { getStock, deleteStock, postStock, putStock };
 };
 
 export default useStockRequest;
