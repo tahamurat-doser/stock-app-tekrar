@@ -58,10 +58,10 @@ const useStockRequest = () => {
     }
   };
 
-  const postStock = async (path = "firms", info )=> {
+  const postStock = async (path = "firms", info ) => {
     dispatch(fetchStart());
     try {
-      await axiosToken.post(`/${path}`);
+      await axiosToken.post(`/${path}/`, info)
       getStock(path)
       toastSuccessNotify(`${path} başarıyla eklenmiştir`)
     } catch (error) {
